@@ -10,7 +10,9 @@ import java.util.*;
  * @param journalTextDto Текст журнала.
  * @param usages         Статистика использования реактивов в текущем журнале.
  */
-public record JournalContentResponseDto(Long id, String title, JournalTextResponseDto journalTextDto,
+public record JournalContentResponseDto(Long id,
+                                        String title,
+                                        JournalTextResponseDto journalTextDto,
                                         List<ReagentUsageResponseDto> usages) {
     public JournalContentResponseDto {
         if (id == null) {

@@ -1,8 +1,6 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import org.springframework.validation.annotation.Validated;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 
 /**
  * DTO (Data Transfer Object) для запроса использования реагента.
@@ -10,11 +8,10 @@ import javax.validation.constraints.Positive;
  *
  * @param reagentId Идентификатор реагента. Не может быть null.
  * @param journalId Идентификатор записи журнала, связанной с использованием реагента. Не может быть null.
- * @param reason Причина использования реагента. Не может быть null.
- * @param quantity Количество используемого реагента. Должно быть положительным числом.
- * @param unit Единица измерения количества реагента. Не может быть null.
+ * @param reason    Причина использования реагента. Не может быть null.
+ * @param quantity  Количество используемого реагента. Должно быть положительным числом.
+ * @param unit      Единица измерения количества реагента. Не может быть null.
  */
-@Validated
 public record ReagentUsageRequestDto(
         @NotNull(message = "Идентификатор реагента не может быть null")
         Long reagentId,

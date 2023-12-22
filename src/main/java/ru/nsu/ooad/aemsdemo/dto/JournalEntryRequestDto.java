@@ -1,7 +1,5 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import org.springframework.validation.annotation.*;
-
 import javax.validation.constraints.*;
 
 /**
@@ -11,7 +9,6 @@ import javax.validation.constraints.*;
  * @param title Заголовок записи журнала. Должен быть не пустым и не может быть null.
  *              Это поле обязательно для заполнения и подлежит валидации на предмет отсутствия пустых значений.
  */
-@Validated
 public record JournalEntryRequestDto(
         @NotBlank(message = "Заголовок не может быть пустым")
         String title

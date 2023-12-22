@@ -1,6 +1,7 @@
 package ru.nsu.ooad.aemsdemo.api.v1.catalogue;
 
 import org.springframework.http.*;
+import org.springframework.validation.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.*;
@@ -41,7 +42,7 @@ public class JournalCatalogueController {
      * @return ResponseEntity с DTO созданной записи журнала.
      */
     @PostMapping
-    public ResponseEntity<JournalEntryResponseDto> createJournalEntry(@RequestBody JournalEntryRequestDto entryDto) {
+    public ResponseEntity<JournalEntryResponseDto> createJournalEntry(@RequestBody @Validated JournalEntryRequestDto entryDto) {
         return ResponseEntity.ok(
                 dataHolder.addJournalEntry(entryDto)
         );
@@ -50,11 +51,11 @@ public class JournalCatalogueController {
     /**
      * Обновляет существующую запись журнала.
      *
-     * @param id Идентификатор записи журнала для обновления.
+     * @param id       Идентификатор записи журнала для обновления.
      * @param entryDto DTO с новыми данными для записи журнала.
      * @return ResponseEntity с DTO обновленной записи журнала.
      */
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<JournalEntryResponseDto> updateJournalEntry(@PathVariable Long id,
                                                                       @RequestBody JournalEntryRequestDto entryDto) {
         return ResponseEntity.ok(

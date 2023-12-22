@@ -1,4 +1,4 @@
-package ru.nsu.ooad.aemsdemo.api.v1.catalog;
+package ru.nsu.ooad.aemsdemo.api.v1.catalogue;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;

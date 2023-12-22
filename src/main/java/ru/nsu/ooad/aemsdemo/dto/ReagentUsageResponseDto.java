@@ -9,7 +9,6 @@ public record ReagentUsageResponseDto(
         UsageReason reason,
         Double quantity,
         Unit unit,
-        LocalDateTime updatedAt,
         LocalDateTime createdAt
 ) {
 }

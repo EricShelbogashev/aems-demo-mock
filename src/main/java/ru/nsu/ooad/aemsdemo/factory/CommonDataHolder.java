@@ -5,6 +5,7 @@ import org.springframework.stereotype.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.exception.catalogue.*;
 import ru.nsu.ooad.aemsdemo.factory.exception.management.*;
+import ru.nsu.ooad.aemsdemo.factory.exception.studio.*;
 
 import java.time.*;
 import java.util.*;
@@ -15,6 +16,7 @@ public class CommonDataHolder {
     private final Map<Long, JournalEntryResponseDto> journalMap = new HashMap<>();
     private final Map<Long, ReagentResponseDto> reagentMap = new HashMap<>();
     private final Map<Long, ReagentUsageResponseDto> reagentUsageMap = new HashMap<>();
+    private final Map<Long, JournalContentResponseDto> journalContentMap = new HashMap<>();
 
     @PostConstruct
     void init() {
@@ -115,10 +117,33 @@ public class CommonDataHolder {
                     usageReasons[ThreadLocalRandom.current().nextInt(usageReasons.length)], // reason
                     ThreadLocalRandom.current().nextDouble(1.0, 100.0), // quantity
                     units[ThreadLocalRandom.current().nextInt(units.length)], // unit
-                    LocalDateTime.now().minusDays(ThreadLocalRandom.current().nextInt(1, 365)), // updatedAt
                     LocalDateTime.now().minusDays(ThreadLocalRandom.current().nextInt(1, 365)) // createdAt
             ));
         }
+
+        // Добавление контента лабораторных журналов.
+        for (long i = 1; i <= 47; i++) {
+            List<ReagentUsageResponseDto> usages = getRandomUsages();
+            journalContentMap.put(i, new JournalContentResponseDto(
+                    i,
+                    "Journal Title " + i,
+                    new JournalTextResponseDto(i, "Journal text content " + i, LocalDateTime.now(), LocalDateTime.now()),
+                    usages
+            ));
+        }
+
+    }
+
+    private List<ReagentUsageResponseDto> getRandomUsages() {
+        List<ReagentUsageResponseDto> usages = new ArrayList<>();
+        int usageCount = ThreadLocalRandom.current().nextInt(1, 5); // От 1 до 4 использований на журнал
+
+        for (int i = 0; i < usageCount; i++) {
+            long randomId = ThreadLocalRandom.current().nextLong(1, reagentUsageMap.size());
+            usages.add(reagentUsageMap.get(randomId));
+        }
+
+        return usages;
     }
 
     public List<JournalEntryResponseDto> getJournalEntryResponseDtos() {
@@ -127,7 +152,7 @@ public class CommonDataHolder {
 
 
     public JournalEntryResponseDto addJournalEntry(JournalEntryRequestDto entryDto) {
-        Long id = journalMap.keySet().stream().max(Long::compareTo).orElse(0L);
+        Long id = journalMap.keySet().stream().max(Long::compareTo).orElse(0L) + 1;
         return journalMap.put(
                 id,
                 new JournalEntryResponseDto(
@@ -159,7 +184,7 @@ public class CommonDataHolder {
     }
 
     public ReagentResponseDto addReagent(ReagentRequestDto reagentDto) {
-        Long id = reagentMap.keySet().stream().max(Long::compareTo).orElse(0L);
+        Long id = reagentMap.keySet().stream().max(Long::compareTo).orElse(0L) + 1;
         return reagentMap.put(
                 id,
                 new ReagentResponseDto(
@@ -199,6 +224,10 @@ public class CommonDataHolder {
             throw new ReagentManagementException("запрашиваемый реагент не существует");
         }
         reagentMap.remove(id);
+        reagentUsageMap.values().stream()
+                .map(ReagentUsageResponseDto::reagentId)
+                .filter(identifier -> identifier.equals(id))
+                .forEach(reagentMap::remove);
     }
 
     public List<ReagentUsageResponseDto> getConsumptionByReagent(Long id) {
@@ -207,5 +236,72 @@ public class CommonDataHolder {
 
     public List<ReagentUsageResponseDto> getConsumptions() {
         return reagentUsageMap.values().stream().toList();
+    }
+
+    public JournalContentResponseDto getJournalContent(Long journalId) {
+        if (!reagentMap.containsKey(journalId)) {
+            throw new JournalContentException("запрашиваемый журнал не существует, невозможно найти содержимое");
+        }
+        return journalContentMap.get(journalId);
+    }
+
+    public JournalTextResponseDto updateText(Long journalId, JournalTextRequestDto textDto) {
+        if (!journalContentMap.containsKey(journalId)) {
+            throw new JournalContentException("запрашиваемый журнал не существует, невозможно найти текст");
+        }
+
+        JournalContentResponseDto contentResponseDto = journalContentMap.computeIfPresent(
+                journalId,
+                (key, value) -> {
+                    var text = value.journalTextDto();
+                    text = new JournalTextResponseDto(
+                            journalId,
+                            textDto.text(),
+                            text.createdAt(),
+                            LocalDateTime.now()
+                    );
+                    return new JournalContentResponseDto(
+                            value.id(),
+                            value.title(),
+                            text,
+                            value.usages()
+                    );
+                }
+        );
+
+        return Objects.requireNonNull(contentResponseDto).journalTextDto();
+    }
+
+    public ReagentUsageResponseDto addUsage(Long journalId, ReagentUsageRequestDto usageDto) {
+        if (!journalContentMap.containsKey(journalId)) {
+            throw new JournalContentException("запрашиваемый журнал не существует, невозможно найти использования");
+        }
+        Long id = reagentUsageMap.keySet().stream().max(Long::compareTo).orElse(0L) + 1;
+
+        ReagentUsageResponseDto usageResponseDto = new ReagentUsageResponseDto(
+                id,
+                usageDto.reagentId(),
+                journalId,
+                usageDto.reason(),
+                usageDto.quantity(),
+                usageDto.unit(),
+                LocalDateTime.now()
+        );
+
+        journalContentMap.computeIfPresent(
+                journalId,
+                (key, value) -> {
+                    var usages = value.usages();
+                    usages.add(usageResponseDto);
+                    return new JournalContentResponseDto(
+                            value.id(),
+                            value.title(),
+                            value.journalTextDto(),
+                            usages
+                    );
+                }
+        );
+
+        return usageResponseDto;
     }
 }

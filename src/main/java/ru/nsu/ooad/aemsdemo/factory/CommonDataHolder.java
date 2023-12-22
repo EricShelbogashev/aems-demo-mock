@@ -310,10 +310,7 @@ public class CommonDataHolder {
                 (key, value) -> {
                     var usages = value.usages();
                     Optional<ReagentUsageResponseDto> any = usages.stream().filter(t -> t.usageId().equals(usageId)).findAny();
-                    ReagentUsageResponseDto dto = any.orElse(null);
-                    if (dto != null) {
-                        usages.remove(dto);
-                    }
+                    any.ifPresent(usages::remove);
                     return new JournalContentResponseDto(
                             value.id(),
                             value.title(),

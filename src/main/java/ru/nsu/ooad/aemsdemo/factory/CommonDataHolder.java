@@ -204,4 +204,8 @@ public class CommonDataHolder {
     public List<ReagentUsageResponseDto> getConsumptionByReagent(Long id) {
         return reagentUsageMap.values().stream().filter(usage -> usage.reagentId().equals(id)).toList();
     }
+
+    public List<ReagentUsageResponseDto> getConsumptions() {
+        return reagentUsageMap.values().stream().toList();
+    }
 }

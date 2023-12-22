@@ -113,7 +113,7 @@ public class CommonDataHolder {
             reagentUsageMap.put(i, new ReagentUsageResponseDto(
                     i, // usageId
                     ThreadLocalRandom.current().nextLong(1, 48), // reagentId
-                    ThreadLocalRandom.current().nextLong(1, 48), // journalId
+                    journalMap.get(ThreadLocalRandom.current().nextLong(0, 46)), // journalId
                     usageReasons[ThreadLocalRandom.current().nextInt(usageReasons.length)], // reason
                     ThreadLocalRandom.current().nextDouble(1.0, 100.0), // quantity
                     units[ThreadLocalRandom.current().nextInt(units.length)], // unit
@@ -281,7 +281,7 @@ public class CommonDataHolder {
         ReagentUsageResponseDto usageResponseDto = new ReagentUsageResponseDto(
                 id,
                 usageDto.reagentId(),
-                journalId,
+                journalMap.get(journalId),
                 usageDto.reason(),
                 usageDto.quantity(),
                 usageDto.unit(),
@@ -303,5 +303,31 @@ public class CommonDataHolder {
         );
 
         return usageResponseDto;
+    }
+
+    public Void deleteUsage(Long journalId, Long usageId) {
+        if (!journalContentMap.containsKey(journalId)) {
+            throw new JournalContentException("запрашиваемый журнал не существует, невозможно найти использования");
+        }
+
+        journalContentMap.computeIfPresent(
+                journalId,
+                (key, value) -> {
+                    var usages = value.usages();
+                    Optional<ReagentUsageResponseDto> any = usages.stream().filter(t -> t.usageId().equals(usageId)).findAny();
+                    ReagentUsageResponseDto dto = any.orElse(null);
+                    if (dto != null) {
+                        usages.remove(dto);
+                    }
+                    return new JournalContentResponseDto(
+                            value.id(),
+                            value.title(),
+                            value.journalTextDto(),
+                            usages
+                    );
+                }
+        );
+
+        return null;
     }
 }

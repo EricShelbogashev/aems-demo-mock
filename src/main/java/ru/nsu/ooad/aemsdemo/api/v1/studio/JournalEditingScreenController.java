@@ -40,8 +40,10 @@ public class JournalEditingScreenController {
     }
 
     @DeleteMapping("/usages/{usageId}")
-    public ResponseEntity<Void> deleteUsage(@PathVariable Long journalId, @PathVariable String usageId) {
-        throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED, "Method not implemented");
+    public ResponseEntity<Void> deleteUsage(@PathVariable Long journalId, @PathVariable Long usageId) {
+        return ResponseEntity.ok(
+                dataHolder.deleteUsage(journalId, usageId)
+        );
     }
 
     @DeleteMapping

@@ -18,8 +18,8 @@ public class ReagentUsageController {
         this.dataHolder = dataHolder;
     }
 
-    @GetMapping("/usage-stats")
-    public ResponseEntity<List<ReagentUsageResponseDto>> getUsageStats() {
+    @GetMapping("/stats")
+    public ResponseEntity<List<ReagentUsageResponseDto>> getStats() {
         return ResponseEntity.ok(
                 dataHolder.getConsumptions()
         );

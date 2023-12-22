@@ -5,7 +5,7 @@ import java.time.*;
 public record ReagentUsageResponseDto(
         Long usageId,
         Long reagentId,
-        Long journalId,
+        JournalEntryResponseDto journalEntryResponseDto,
         UsageReason reason,
         Double quantity,
         Unit unit,

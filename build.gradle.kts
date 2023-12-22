@@ -17,6 +17,7 @@ repositories {
 }
 
 dependencies {
+    implementation("javax.validation:validation-api:2.0.1.Final")
     implementation("org.springframework.boot:spring-boot-starter-web")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

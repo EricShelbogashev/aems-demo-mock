@@ -13,16 +13,15 @@ import jakarta.validation.constraints.*;
  * @param unit      Единица измерения количества реагента. Не может быть null.
  */
 public record ReagentUsageRequestDto(
-        @NotNull(message = "Идентификатор реагента не может быть null")
+        @NotNull(message = "идентификатор реагента не может быть null")
         Long reagentId,
-        @NotNull(message = "Идентификатор записи журнала не может быть null")
         Long journalId,
-        @NotNull(message = "Причина использования не может быть null")
+        @NotNull(message = "причина использования не может быть null")
         UsageReason reason,
-        @NotNull(message = "Количество не может быть null")
-        @Positive(message = "Количество должно быть положительным числом")
+        @NotNull(message = "количество не может быть null")
+        @Positive(message = "количество должно быть положительным числом")
         Double quantity,
-        @NotNull(message = "Единица измерения не может быть null")
+        @NotNull(message = "единица измерения не может быть null")
         Unit unit
 ) {
 }

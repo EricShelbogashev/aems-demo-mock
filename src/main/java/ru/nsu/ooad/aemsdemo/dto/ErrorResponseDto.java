@@ -24,7 +24,7 @@ public record ErrorResponseDto(String summary, List<String> errors) {
         }
 
         if (summary == null) {
-            throw new IllegalArgumentException("резюме ошибки не должно быть null");
+            throw new IllegalArgumentException("заключение ошибки не должно быть null");
         }
     }
 }

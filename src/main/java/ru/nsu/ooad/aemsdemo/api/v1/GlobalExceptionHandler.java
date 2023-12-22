@@ -16,28 +16,25 @@ import java.util.stream.*;
 public class GlobalExceptionHandler {
 
     /**
-     * Обработчик исключения, срабатывающий при HttpMessageNotReadableException.
+     * Обрабатывает исключение MethodArgumentNotValidException, которое возникает при валидации аргументов метода контроллера.
+     * Возвращает ResponseEntity с объектом ErrorResponseDto, содержащим информацию об ошибках валидации.
      *
-     * @param ex Исключение, сигнализирующее о том, что HTTP-сообщение не может быть прочитано.
-     * @return ResponseEntity с объектом ErrorResponseDto содержащим информацию об ошибке.
+     * @param ex Исключение MethodArgumentNotValidException, которое было сгенерировано при валидации аргументов метода.
+     * @return ResponseEntity с объектом ErrorResponseDto в случае ошибок валидации или HttpStatus.OK в случае отсутствия ошибок.
      */
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorResponseDto> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-        ErrorResponseDto responseDto = new ErrorResponseDto("Ошибка валидации", Collections.singletonList("Входящий запрос имеет некорректную структуру и не может быть прочитан"));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponseDto> handleValidationException(MethodArgumentNotValidException ex) {
+        // Извлекаем ошибки валидации из объекта BindingResult
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.toList());
 
+        // Создаем объект ErrorResponseDto для возврата информации об ошибках
         ErrorResponseDto responseDto = new ErrorResponseDto("Ошибка валидации", errors);
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
 

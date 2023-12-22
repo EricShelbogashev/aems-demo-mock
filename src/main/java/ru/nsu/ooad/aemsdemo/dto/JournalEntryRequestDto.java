@@ -10,8 +10,8 @@ import jakarta.validation.constraints.*;
  *              Это поле обязательно для заполнения и подлежит валидации на предмет отсутствия пустых значений.
  */
 public record JournalEntryRequestDto(
-        @NotBlank(message = "Заголовок не может быть пустым")
-        @Size(max = 255, message = "Имя не должно превышать 255 символов")
+        @NotBlank(message = "заголовок не может быть пустым")
+        @Size(max = 256, message = "заголовок не должен превышать 256 символов")
         String title
 ) {
 }

@@ -2,7 +2,6 @@ package ru.nsu.ooad.aemsdemo;
 
 import org.springframework.boot.builder.*;
 import org.springframework.boot.web.servlet.support.*;
-import ru.nsu.ooad.aemsdemo.*;
 
 public class ServletInitializer extends SpringBootServletInitializer {
 

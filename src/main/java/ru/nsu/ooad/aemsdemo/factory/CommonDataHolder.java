@@ -152,15 +152,17 @@ public class CommonDataHolder {
 
     public JournalEntryResponseDto addJournalEntry(JournalEntryRequestDto entryDto) {
         Long id = journalMap.keySet().stream().max(Long::compareTo).orElse(0L) + 1;
-        return journalMap.put(
+        JournalEntryResponseDto responseDto = new JournalEntryResponseDto(
                 id,
-                new JournalEntryResponseDto(
-                        id,
-                        entryDto.title(),
-                        LocalDateTime.now(),
-                        LocalDateTime.now()
-                )
+                entryDto.title(),
+                LocalDateTime.now(),
+                LocalDateTime.now()
         );
+        journalMap.put(
+                id,
+                responseDto
+        );
+        return responseDto;
     }
 
     public JournalEntryResponseDto updateJournalEntry(Long id, JournalEntryRequestDto entryDto) {
@@ -184,19 +186,21 @@ public class CommonDataHolder {
 
     public ReagentResponseDto addReagent(ReagentRequestDto reagentDto) {
         Long id = reagentMap.keySet().stream().max(Long::compareTo).orElse(0L) + 1;
-        return reagentMap.put(
+        ReagentResponseDto responseDto = new ReagentResponseDto(
                 id,
-                new ReagentResponseDto(
-                        id,
-                        reagentDto.name(),
-                        reagentDto.latexFormula(),
-                        reagentDto.molarWeight(),
-                        reagentDto.description(),
-                        reagentDto.hazardCategory(),
-                        LocalDateTime.now(),
-                        LocalDateTime.now()
-                )
+                reagentDto.name(),
+                reagentDto.latexFormula(),
+                reagentDto.molarWeight(),
+                reagentDto.description(),
+                reagentDto.hazardCategory(),
+                LocalDateTime.now(),
+                LocalDateTime.now()
         );
+        reagentMap.put(
+                id,
+                responseDto
+        );
+        return responseDto;
     }
 
     public ReagentResponseDto updateReagent(Long id, ReagentRequestDto reagentDto) {

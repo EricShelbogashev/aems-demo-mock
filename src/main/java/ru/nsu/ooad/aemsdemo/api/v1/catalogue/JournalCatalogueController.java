@@ -12,13 +12,11 @@ import java.util.*;
 @RequestMapping("v1/catalogs/journals")
 public class JournalCatalogueController {
 
+    /**
+     * Хранилище общих данных, используемое для доступа к записям журнала.
+     */
     private final CommonDataHolder dataHolder;
 
-    /**
-     * Конструктор для контроллера каталога журналов.
-     *
-     * @param dataHolder Хранилище общих данных, используемое для доступа к записям журнала.
-     */
     public JournalCatalogueController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }

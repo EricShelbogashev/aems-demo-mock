@@ -1,6 +1,6 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO для запроса, содержащего текст записи журнала.

@@ -1,6 +1,6 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO (Data Transfer Object) для запроса данных о реагенте.

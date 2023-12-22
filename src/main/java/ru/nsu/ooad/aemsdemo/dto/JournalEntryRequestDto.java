@@ -1,6 +1,6 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO (Data Transfer Object) для запроса создания или обновления записи журнала.
@@ -11,6 +11,7 @@ import javax.validation.constraints.*;
  */
 public record JournalEntryRequestDto(
         @NotBlank(message = "Заголовок не может быть пустым")
+        @Size(max = 255, message = "Имя не должно превышать 255 символов")
         String title
 ) {
 }

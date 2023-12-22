@@ -11,13 +11,11 @@ import java.util.*;
 @RequestMapping("v1/management/usage-entries")
 public class ReagentUsageController {
 
+    /**
+     * Хранилище общих данных, используемое для доступа к записям журнала.
+     */
     private final CommonDataHolder dataHolder;
 
-    /**
-     * Конструктор для контроллера управления использованием реагентов.
-     *
-     * @param dataHolder Хранилище общих данных, используемое для отслеживания использования реагентов.
-     */
     public ReagentUsageController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }
@@ -27,7 +25,7 @@ public class ReagentUsageController {
      *
      * @return ResponseEntity со списком DTO, отражающим статистику использования реагентов.
      */
-    @GetMapping("/stats")
+    @GetMapping
     public ResponseEntity<List<ReagentUsageResponseDto>> getStats() {
         return ResponseEntity.ok(
                 dataHolder.getConsumptions()

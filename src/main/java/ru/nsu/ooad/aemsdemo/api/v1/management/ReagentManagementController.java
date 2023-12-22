@@ -12,13 +12,11 @@ import java.util.*;
 @RequestMapping("v1/management/reagents/{id}")
 public class ReagentManagementController {
 
+    /**
+     * Хранилище общих данных, используемое для доступа к записям журнала.
+     */
     private final CommonDataHolder dataHolder;
 
-    /**
-     * Конструктор для контроллера управления реагентами.
-     *
-     * @param dataHolder Хранилище общих данных, используемое для управления реагентами.
-     */
     public ReagentManagementController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }
@@ -45,9 +43,11 @@ public class ReagentManagementController {
      * @return ResponseEntity без содержимого.
      */
     @DeleteMapping
-    public ResponseEntity<Void> deleteReagent(@PathVariable Long id) {
+    public ResponseEntity<MessageResponseDto> deleteReagent(@PathVariable Long id) {
         dataHolder.deleteReagent(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(
+                new MessageResponseDto("реактив успешно удален")
+        );
     }
 
     /**

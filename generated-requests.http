@@ -1,0 +1,86 @@
+### Получает все записи журнала.
+GET http://localhost:8080/api/v1/catalogs/journals
+
+### Создает новую запись журнала.
+POST http://localhost:8080/api/v1/catalogs/journals
+Content-Type: application/json
+
+{
+  "title": "Sample Journal Entry Title"
+}
+
+### Обновляет существующую запись журнала.
+PUT http://localhost:8080/api/v1/catalogs/journals/{{$random.integer(0, 47)}}
+Content-Type: application/json
+
+{
+  "title": "Updated Journal Entry Title"
+}
+
+### Получает все реагенты.
+GET http://localhost:8080/api/v1/catalogs/reagents
+
+### Создает новый реагент.
+POST http://localhost:8080/api/v1/catalogs/reagents
+Content-Type: application/json
+
+{
+  "name": "Updated Chemical",
+  "latexFormula": "C6H12O6",
+  "molarWeight": 180.16,
+  "description": "This is an updated chemical substance.",
+  "hazardCategory": "TOXIC"
+}
+
+### Обновляет существующий реагент.
+PUT http://localhost:8080/api/v1/management/reagents/{{$random.integer(0, 47)}}
+Content-Type: application/json
+
+{
+  "name": "Updated Chemical",
+  "latexFormula": "C6H12O6",
+  "molarWeight": 180.16,
+  "description": "This is an updated chemical substance.",
+  "hazardCategory": "TOXIC"
+}
+
+### Удаляет реагент.
+DELETE http://localhost:8080/api/v1/management/reagents/{{$random.integer(0, 47)}}
+
+### Получает статистику использования реагента.
+GET http://localhost:8080/api/v1/management/reagents/{{$random.integer(0, 47)}}/consumption-stats
+
+### Получает статистику использования всех реагентов.
+GET http://localhost:8080/api/v1/management/usage-entries
+
+### Получает содержимое журнала.
+GET http://localhost:8080/api/v1/sources/journals/{{$random.integer(0, 47)}}
+
+### Обновляет текст в журнале.
+POST http://localhost:8080/api/v1/sources/journals/{{$random.integer(0, 47)}}
+Content-Type: application/json
+
+{
+  "text": "Новый текст журнала"
+}
+
+<> 2023-12-23T063650.200.json
+
+### Добавляет запись об использовании реагента в журнал.
+POST http://localhost:8080/api/v1/sources/journals/{{$random.integer(0, 47)}}/usages
+Content-Type: application/json
+
+{
+  "reagentId": 3,
+  "journalId": 4,
+  "reason": "DAMAGED",
+  "quantity": 34.3426,
+  "unit": "NANOMOLE"
+}
+
+### Удаляет запись об использовании реагента из журнала.
+@usageId = 1
+DELETE http://localhost:8080/api/v1/sources/journals/{{$random.integer(0, 47)}}/usages/{{usageId}}
+
+### Удаляет запись журнала.
+DELETE http://localhost:8080/api/v1/sources/journals/{{$random.integer(0, 47)}}

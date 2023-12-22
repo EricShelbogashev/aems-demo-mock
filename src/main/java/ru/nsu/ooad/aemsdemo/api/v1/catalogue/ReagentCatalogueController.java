@@ -12,13 +12,11 @@ import java.util.*;
 @RequestMapping("v1/catalogs/reagents")
 public class ReagentCatalogueController {
 
+    /**
+     * Хранилище общих данных, используемое для доступа к записям журнала.
+     */
     private final CommonDataHolder dataHolder;
 
-    /**
-     * Конструктор для контроллера каталога реагентов.
-     *
-     * @param dataHolder Хранилище общих данных, используемое для управления реагентами.
-     */
     public ReagentCatalogueController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }

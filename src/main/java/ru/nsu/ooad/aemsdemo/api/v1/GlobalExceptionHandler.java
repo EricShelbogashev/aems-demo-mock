@@ -40,9 +40,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<ErrorResponseDto> handleBaseException(BaseException exception) {
-        List<String> errors = Collections.singletonList(exception.getMessage());
+        List<String> errors = new ArrayList<>();
 
-        ErrorResponseDto responseDto = new ErrorResponseDto("Ошибка валидации", errors);
+        ErrorResponseDto responseDto = new ErrorResponseDto(exception.getMessage(), errors);
 
         return ResponseEntity.badRequest().body(responseDto);
     }

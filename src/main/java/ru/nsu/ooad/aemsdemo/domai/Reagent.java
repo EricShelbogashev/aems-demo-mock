@@ -44,15 +44,15 @@ public class Reagent {
     private LocalDateTime updatedAt;
 
     public Reagent(String title, String latexFormula, Double molarWeight, String description,
-            HazardCategoryDomain hazardCategoryDomain) {
+            HazardCategoryDomain hazardCategoryDomain, LocalDateTime createdAt, LocalDateTime updatedAt) {
 
         this.title = title;
         this.latexFormula = latexFormula;
         this.molarWeight = molarWeight;
         this.description = description;
         this.hazardCategoryDomain = hazardCategoryDomain;
-//        this.createdAt = createdAt;
-//        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Reagent() {

@@ -1,13 +1,13 @@
 package ru.nsu.ooad.aemsdemo.api.v1;
 
 import org.springframework.http.*;
-import org.springframework.http.converter.*;
 import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 
 import java.util.*;
 import java.util.stream.*;
+import ru.nsu.ooad.aemsdemo.factory.exception.BaseException;
 
 /**
  * Глобальный обработчик исключений для обработки ошибок чтения HTTP-сообщений.
@@ -38,4 +38,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
 
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ErrorResponseDto> handleBaseException(BaseException exception) {
+        List<String> errors = Collections.singletonList(exception.getMessage());
+
+        ErrorResponseDto responseDto = new ErrorResponseDto("Ошибка валидации", errors);
+
+        return ResponseEntity.badRequest().body(responseDto);
+    }
 }

@@ -13,10 +13,20 @@ public class ReagentCatalogueController {
 
     private final CommonDataHolder dataHolder;
 
+    /**
+     * Конструктор для контроллера каталога реагентов.
+     *
+     * @param dataHolder Хранилище общих данных, используемое для управления реагентами.
+     */
     public ReagentCatalogueController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }
 
+    /**
+     * Получает все реагенты.
+     *
+     * @return ResponseEntity со списком DTO реагентов.
+     */
     @GetMapping
     public ResponseEntity<List<ReagentResponseDto>> getAllReagents() {
         return ResponseEntity.ok(
@@ -24,6 +34,12 @@ public class ReagentCatalogueController {
         );
     }
 
+    /**
+     * Создает новый реагент.
+     *
+     * @param reagentDto DTO для создания реагента.
+     * @return ResponseEntity с DTO созданного реагента.
+     */
     @PostMapping
     public ResponseEntity<ReagentResponseDto> createReagent(@RequestBody ReagentRequestDto reagentDto) {
         return ResponseEntity.ok(

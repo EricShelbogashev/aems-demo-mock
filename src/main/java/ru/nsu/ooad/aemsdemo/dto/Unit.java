@@ -1,5 +1,8 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
+/**
+ * Единица измерения.
+ */
 public enum Unit {
     MOLE,          // Моль
     GRAM,          // Грамм

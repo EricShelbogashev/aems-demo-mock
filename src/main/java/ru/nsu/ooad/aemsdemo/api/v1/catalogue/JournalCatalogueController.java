@@ -13,10 +13,20 @@ public class JournalCatalogueController {
 
     private final CommonDataHolder dataHolder;
 
+    /**
+     * Конструктор для контроллера каталога журналов.
+     *
+     * @param dataHolder Хранилище общих данных, используемое для доступа к записям журнала.
+     */
     public JournalCatalogueController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }
 
+    /**
+     * Получает все записи журнала.
+     *
+     * @return ResponseEntity со списком DTO записей журнала.
+     */
     @GetMapping
     public ResponseEntity<List<JournalEntryResponseDto>> getAllJournalEntries() {
         return ResponseEntity.ok(
@@ -24,6 +34,12 @@ public class JournalCatalogueController {
         );
     }
 
+    /**
+     * Создает новую запись журнала.
+     *
+     * @param entryDto DTO для создания записи журнала.
+     * @return ResponseEntity с DTO созданной записи журнала.
+     */
     @PostMapping
     public ResponseEntity<JournalEntryResponseDto> createJournalEntry(@RequestBody JournalEntryRequestDto entryDto) {
         return ResponseEntity.ok(
@@ -31,6 +47,13 @@ public class JournalCatalogueController {
         );
     }
 
+    /**
+     * Обновляет существующую запись журнала.
+     *
+     * @param id Идентификатор записи журнала для обновления.
+     * @param entryDto DTO с новыми данными для записи журнала.
+     * @return ResponseEntity с DTO обновленной записи журнала.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<JournalEntryResponseDto> updateJournalEntry(@PathVariable Long id,
                                                                       @RequestBody JournalEntryRequestDto entryDto) {

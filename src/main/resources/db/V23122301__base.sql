@@ -14,7 +14,15 @@ VALUES ('CORROSIVE'),
        ('INERT'),
        ('IRRITANT'),
        ('OXIDIZING'),
-       ('TOXIC');
+       ('TOXIC'),
+       ('RADIOACTIVE'),
+       ('BIOHAZARD'),
+       ('GAS_UNDER_PRESSURE'),
+       ('ACUTE_TOXICITY'),
+       ('CARCINOGENIC'),
+       ('TERATOGENIC'),
+       ('MUTAGENIC');
+
 
 CREATE TABLE usage_reason
 (
@@ -26,7 +34,19 @@ INSERT INTO usage_reason (reason)
 VALUES ('IMPORTED'),
        ('SYNTHESIZED'),
        ('USED_FOR_SYNTHESIS'),
-       ('NOT_REGISTERED');
+       ('NOT_REGISTERED'),
+       ('USED_FOR_ANALYSIS'),
+       ('EXPIRED'),
+       ('DAMAGED'),
+       ('LOST'),
+       ('STOLEN'),
+       ('USED_FOR_TESTING'),
+       ('USED_FOR_TEACHING'),
+       ('RETURNED'),
+       ('DISPOSED'),
+       ('SAMPLE_TAKEN'),
+       ('ACCIDENTAL_SPILL'),
+       ('QUALITY_CHECK');
 
 
 create table unit
@@ -37,18 +57,34 @@ create table unit
 
 INSERT INTO unit (unit)
 VALUES ('MOLE'),
-       ('GRAM');
+       ('GRAM'),
+       ('KILOGRAM'),
+       ('LITER'),
+       ('MILLILITER'),
+       ('MICROLITER'),
+       ('NANOLITER'),
+       ('MILLIMOLE'),
+       ('MICROMOLE'),
+       ('NANOMOLE'),
+       ('MOLAR'),
+       ('MILLIGRAM'),
+       ('MICROGRAM'),
+       ('NANOGRAM'),
+       ('PPM'),
+       ('PPB'),
+       ('PPT'),
+       ('MOL_PER_LITER'),
+       ('G_PER_LITER'),
+       ('KG_PER_LITER');
 
 
 CREATE TABLE journal
 (
-    id               BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    title            VARCHAR   NOT NULL,
-    title_created_at TIMESTAMP NOT NULL,
-    title_updated_at TIMESTAMP,
-    text             VARCHAR,
-    text_createdAt   TIMESTAMP NOT NULL,
-    text_updatedAt   TIMESTAMP
+    id         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title      VARCHAR   NOT NULL,
+    text       VARCHAR,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP
 );
 
 

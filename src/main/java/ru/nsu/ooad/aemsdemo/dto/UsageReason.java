@@ -1,5 +1,8 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
+/**
+ * Причины использования реактива.
+ */
 public enum UsageReason {
     IMPORTED,             // Импортирован
     SYNTHESIZED,          // Синтезирован

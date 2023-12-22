@@ -1,16 +1,15 @@
-package ru.nsu.ooad.aemsdemo.api.catalog;
+package ru.nsu.ooad.aemsdemo.api.v1.catalog;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.*;
-import ru.nsu.ooad.aemsdemo.api.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("catalogs/journals")
-public class JournalCatalogueController implements BaseController {
+@RequestMapping("v1/catalogs/journals")
+public class JournalCatalogueController {
 
     @GetMapping
     public ResponseEntity<List<JournalEntryResponseDto>> getAllJournalEntries() {

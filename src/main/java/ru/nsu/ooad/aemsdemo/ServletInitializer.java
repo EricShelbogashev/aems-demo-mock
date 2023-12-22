@@ -1,4 +1,4 @@
-package ru.nsu.ooad.aemsdemo.api;
+package ru.nsu.ooad.aemsdemo;
 
 import org.springframework.boot.builder.*;
 import org.springframework.boot.web.servlet.support.*;

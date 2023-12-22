@@ -1,16 +1,15 @@
-package ru.nsu.ooad.aemsdemo.api.catalog;
+package ru.nsu.ooad.aemsdemo.api.v1.catalog;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.*;
-import ru.nsu.ooad.aemsdemo.api.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("catalogs/reagents")
-public class ReagentCatalogueController implements BaseController {
+@RequestMapping("v1/catalogs/reagents")
+public class ReagentCatalogueController {
 
     @GetMapping
     public ResponseEntity<List<ReagentResponseDto>> getAllReagents() {

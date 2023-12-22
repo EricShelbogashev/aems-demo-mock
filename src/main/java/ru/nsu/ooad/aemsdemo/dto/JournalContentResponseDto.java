@@ -5,7 +5,7 @@ import java.util.*;
 public record JournalContentResponseDto(
         Long id,
         String title,
-        Date createdAt,
-        Date updatedAt
+        JournalTextResponseDto journalTextDto,
+        List<ReagentUsageResponseDto> usages
 ) {
 }

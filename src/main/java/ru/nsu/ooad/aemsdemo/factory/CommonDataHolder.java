@@ -1,10 +1,10 @@
 package ru.nsu.ooad.aemsdemo.factory;
 
 import jakarta.annotation.*;
-import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.exception.catalogue.*;
+import ru.nsu.ooad.aemsdemo.factory.exception.management.*;
 
 import java.time.*;
 import java.util.*;
@@ -14,9 +14,11 @@ import java.util.concurrent.*;
 public class CommonDataHolder {
     private final Map<Long, JournalEntryResponseDto> journalMap = new HashMap<>();
     private final Map<Long, ReagentResponseDto> reagentMap = new HashMap<>();
+    private final Map<Long, ReagentUsageResponseDto> reagentUsageMap = new HashMap<>();
 
     @PostConstruct
     void init() {
+        // Добавление записей журналов.
         for (long i = 1; i <= 47; i++) {
             LocalDateTime date = LocalDateTime.of(2023, Month.JANUARY.getValue() + new Random().nextInt(12),
                     1 + new Random().nextInt(28),
@@ -30,6 +32,7 @@ public class CommonDataHolder {
             ));
         }
 
+        // Добавление химических реактивов.
         String[][] reagents = {
                 {"Sodium Chloride", "NaCl"},
                 {"Hydrochloric Acid", "HCl"},
@@ -100,6 +103,22 @@ public class CommonDataHolder {
             ));
         }
 
+        // Добавление статистики использования реактивов.
+        UsageReason[] usageReasons = UsageReason.values();
+        Unit[] units = Unit.values();
+
+        for (long i = 1; i <= 47; i++) {
+            reagentUsageMap.put(i, new ReagentUsageResponseDto(
+                    i, // usageId
+                    ThreadLocalRandom.current().nextLong(1, 48), // reagentId
+                    ThreadLocalRandom.current().nextLong(1, 48), // journalId
+                    usageReasons[ThreadLocalRandom.current().nextInt(usageReasons.length)], // reason
+                    ThreadLocalRandom.current().nextDouble(1.0, 100.0), // quantity
+                    units[ThreadLocalRandom.current().nextInt(units.length)], // unit
+                    LocalDateTime.now().minusDays(ThreadLocalRandom.current().nextInt(1, 365)), // updatedAt
+                    LocalDateTime.now().minusDays(ThreadLocalRandom.current().nextInt(1, 365)) // createdAt
+            ));
+        }
     }
 
     public List<JournalEntryResponseDto> getJournalEntryResponseDtos() {
@@ -154,5 +173,35 @@ public class CommonDataHolder {
                         LocalDateTime.now()
                 )
         );
+    }
+
+    public ReagentResponseDto updateReagent(Long id, ReagentRequestDto reagentDto) {
+        if (!reagentMap.containsKey(id)) {
+            throw new ReagentManagementException("запрашиваемый реагент не существует");
+        }
+        return reagentMap.computeIfPresent(
+                id,
+                (key, value) -> new ReagentResponseDto(
+                        id,
+                        reagentDto.name(),
+                        reagentDto.latexFormula(),
+                        reagentDto.molarWeight(),
+                        reagentDto.description(),
+                        reagentDto.hazardCategory(),
+                        value.createdAt(),
+                        LocalDateTime.now()
+                )
+        );
+    }
+
+    public void deleteReagent(Long id) {
+        if (!reagentMap.containsKey(id)) {
+            throw new ReagentManagementException("запрашиваемый реагент не существует");
+        }
+        reagentMap.remove(id);
+    }
+
+    public List<ReagentUsageResponseDto> getConsumptionByReagent(Long id) {
+        return reagentUsageMap.values().stream().filter(usage -> usage.reagentId().equals(id)).toList();
     }
 }

@@ -5,6 +5,6 @@ public record ReagentRequestDto(
         String latexFormula,
         Double molarWeight,
         String description,
-        String hazardCategory
+        HazardCategory hazardCategory
 ) {
 }

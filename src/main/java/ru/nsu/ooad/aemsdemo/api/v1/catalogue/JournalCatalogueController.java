@@ -20,7 +20,7 @@ public class JournalCatalogueController {
     @GetMapping
     public ResponseEntity<List<JournalEntryResponseDto>> getAllJournalEntries() {
         return ResponseEntity.ok(
-                dataHolder.getJournalEntryResponseDtoMap().values().stream().toList()
+                dataHolder.getJournalEntryResponseDtos()
         );
     }
 

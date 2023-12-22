@@ -8,7 +8,7 @@ public record ReagentResponseDto(
         String latexFormula,
         Double molarWeight,
         String description,
-        String hazardCategory,
+        HazardCategory hazardCategory,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

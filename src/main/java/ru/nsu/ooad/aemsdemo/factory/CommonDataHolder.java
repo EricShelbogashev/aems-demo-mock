@@ -127,7 +127,7 @@ public class CommonDataHolder {
             journalContentMap.put(i, new JournalContentResponseDto(
                     i,
                     "Journal Title " + i,
-                    new JournalTextResponseDto(i, "Journal text content " + i, LocalDateTime.now(), LocalDateTime.now()),
+                    new JournalTextResponseDto("Journal text content " + i),
                     usages
             ));
         }
@@ -254,12 +254,7 @@ public class CommonDataHolder {
                 journalId,
                 (key, value) -> {
                     var text = value.journalTextDto();
-                    text = new JournalTextResponseDto(
-                            journalId,
-                            textDto.text(),
-                            text.createdAt(),
-                            LocalDateTime.now()
-                    );
+                    text = new JournalTextResponseDto(textDto.text());
                     return new JournalContentResponseDto(
                             value.id(),
                             value.title(),

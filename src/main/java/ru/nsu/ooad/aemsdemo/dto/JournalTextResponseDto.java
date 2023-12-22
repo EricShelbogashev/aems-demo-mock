@@ -1,11 +1,9 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import java.time.*;
-
-public record JournalTextResponseDto(
-        Long id,
-        String text,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
-) {
+/**
+ * Текст лабораторного журнала, часть его контента.
+ *
+ * @param text Текст журнала.
+ */
+public record JournalTextResponseDto(String text) {
 }

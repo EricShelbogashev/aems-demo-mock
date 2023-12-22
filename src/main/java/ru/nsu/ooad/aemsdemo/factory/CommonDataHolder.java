@@ -299,7 +299,7 @@ public class CommonDataHolder {
         return usageResponseDto;
     }
 
-    public Void deleteUsage(Long journalId, Long usageId) {
+    public void deleteUsage(Long journalId, Long usageId) {
         if (!journalContentMap.containsKey(journalId)) {
             throw new JournalContentException("запрашиваемый журнал не существует, невозможно найти использования");
         }
@@ -319,6 +319,5 @@ public class CommonDataHolder {
                 }
         );
 
-        return null;
     }
 }

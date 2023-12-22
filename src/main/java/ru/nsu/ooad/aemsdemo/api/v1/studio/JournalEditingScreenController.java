@@ -38,7 +38,7 @@ public class JournalEditingScreenController {
      * Обновляет текст в журнале.
      *
      * @param journalId Идентификатор журнала, текст которого нужно обновить.
-     * @param textDto DTO с новым текстом для журнала.
+     * @param textDto   DTO с новым текстом для журнала.
      * @return ResponseEntity с DTO обновленного текста журнала.
      */
     @PostMapping
@@ -53,7 +53,7 @@ public class JournalEditingScreenController {
      * Добавляет запись об использовании реагента в журнал.
      *
      * @param journalId Идентификатор журнала, к которому добавляется запись об использовании.
-     * @param usageDto DTO с данными об использовании реагента.
+     * @param usageDto  DTO с данными об использовании реагента.
      * @return ResponseEntity с DTO добавленной записи об использовании реагента.
      */
     @PostMapping("/usages")
@@ -68,7 +68,7 @@ public class JournalEditingScreenController {
      * Удаляет запись об использовании реагента из журнала.
      *
      * @param journalId Идентификатор журнала, из которого удаляется запись.
-     * @param usageId Идентификатор записи об использовании, которую необходимо удалить.
+     * @param usageId   Идентификатор записи об использовании, которую необходимо удалить.
      * @return ResponseEntity без содержимого.
      */
     @DeleteMapping("/usages/{usageId}")

@@ -1,7 +1,6 @@
 package ru.nsu.ooad.aemsdemo.api.v1.catalogue;
 
 import org.springframework.http.*;
-import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.*;
@@ -43,8 +42,7 @@ public class JournalCatalogueController {
      * @return ResponseEntity с DTO созданной записи журнала.
      */
     @PostMapping
-    public ResponseEntity<JournalEntryResponseDto> createJournalEntry(@Valid @RequestBody JournalEntryRequestDto entryDto, BindingResult result) {
-        System.out.println(result.getAllErrors());
+    public ResponseEntity<JournalEntryResponseDto> createJournalEntry(@Valid @RequestBody JournalEntryRequestDto entryDto) {
         return ResponseEntity.ok(
                 dataHolder.addJournalEntry(entryDto)
         );

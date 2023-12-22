@@ -24,6 +24,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.postgresql:postgresql:42.6.0")
     implementation("org.flywaydb:flyway-core")
+
+//    implementation ("org.apache.logging.log4j:log4j-api:2.x.x")
+//    implementation ("org.apache.logging.log4j:log4j-core:2.x.x")
 }
 
 tasks.withType<Test> {

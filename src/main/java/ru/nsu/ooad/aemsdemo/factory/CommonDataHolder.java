@@ -92,16 +92,7 @@ public class CommonDataHolder {
             int hazardIndex = ThreadLocalRandom.current().nextInt(hazardCategories.length);
             LocalDateTime time = LocalDateTime.now().minusDays(ThreadLocalRandom.current().nextInt(0, 365));
 
-            reagentMap.put(i, new ReagentResponseDto(
-                    i,
-                    reagents[randomIndex][0],
-                    reagents[randomIndex][1],
-                    ThreadLocalRandom.current().nextDouble(50.0, 300.0),
-                    "Chemical laboratory reagent",
-                    hazardCategories[hazardIndex],
-                    time,
-                    time.plusDays(ThreadLocalRandom.current().nextInt(1, 30))
-            ));
+            reagentMap.put(i, null);
         }
 
         // Добавление статистики использования реактивов.
@@ -109,26 +100,26 @@ public class CommonDataHolder {
         Unit[] units = Unit.values();
 
         for (long i = 1; i <= 47; i++) {
-            reagentUsageMap.put(i, new ReagentUsageResponseDto(
-                    i, // usageId
-                    ThreadLocalRandom.current().nextLong(1, 48), // reagentId
-                    journalMap.get(ThreadLocalRandom.current().nextLong(0, 46)), // journalId
-                    usageReasons[ThreadLocalRandom.current().nextInt(usageReasons.length)], // reason
-                    ThreadLocalRandom.current().nextDouble(1.0, 100.0), // quantity
-                    units[ThreadLocalRandom.current().nextInt(units.length)], // unit
-                    LocalDateTime.now().minusDays(ThreadLocalRandom.current().nextInt(1, 365)) // createdAt
-            ));
+//            reagentUsageMap.put(i, new ReagentUsageResponseDto(
+//                    i, // usageId
+//                    ThreadLocalRandom.current().nextLong(1, 48), // reagentId
+//                    journalMap.get(ThreadLocalRandom.current().nextLong(0, 46)), // journalId
+//                    usageReasons[ThreadLocalRandom.current().nextInt(usageReasons.length)], // reason
+//                    ThreadLocalRandom.current().nextDouble(1.0, 100.0), // quantity
+//                    units[ThreadLocalRandom.current().nextInt(units.length)], // unit
+//                    LocalDateTime.now().minusDays(ThreadLocalRandom.current().nextInt(1, 365)) // createdAt
+//            ));
         }
 
         // Добавление контента лабораторных журналов.
         for (long i = 1; i <= 47; i++) {
-            List<ReagentUsageResponseDto> usages = getRandomUsages();
-            journalContentMap.put(i, new JournalContentResponseDto(
-                    i,
-                    "Journal Title " + i,
-                    new JournalTextResponseDto("Journal text content " + i),
-                    usages
-            ));
+//            List<ReagentUsageResponseDto> usages = getRandomUsages();
+//            journalContentMap.put(i, new JournalContentResponseDto(
+//                    i,
+//                    "Journal Title " + i,
+//                    new JournalTextResponseDto("Journal text content " + i),
+//                    usages
+//            ));
         }
 
     }

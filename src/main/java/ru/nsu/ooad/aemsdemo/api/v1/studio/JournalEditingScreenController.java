@@ -12,10 +12,21 @@ public class JournalEditingScreenController {
 
     private final CommonDataHolder dataHolder;
 
+    /**
+     * Конструктор для контроллера экрана редактирования журнала.
+     *
+     * @param dataHolder Хранилище общих данных, используемое для управления содержимым журнала.
+     */
     public JournalEditingScreenController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }
 
+    /**
+     * Получает содержимое журнала.
+     *
+     * @param journalId Идентификатор журнала, содержимое которого нужно получить.
+     * @return ResponseEntity с DTO содержимого журнала.
+     */
     @GetMapping
     public ResponseEntity<JournalContentResponseDto> getContent(@PathVariable Long journalId) {
         return ResponseEntity.ok(
@@ -23,6 +34,13 @@ public class JournalEditingScreenController {
         );
     }
 
+    /**
+     * Обновляет текст в журнале.
+     *
+     * @param journalId Идентификатор журнала, текст которого нужно обновить.
+     * @param textDto DTO с новым текстом для журнала.
+     * @return ResponseEntity с DTO обновленного текста журнала.
+     */
     @PostMapping
     public ResponseEntity<JournalTextResponseDto> updateText(@PathVariable Long journalId,
                                                              @RequestBody JournalTextRequestDto textDto) {
@@ -31,6 +49,13 @@ public class JournalEditingScreenController {
         );
     }
 
+    /**
+     * Добавляет запись об использовании реагента в журнал.
+     *
+     * @param journalId Идентификатор журнала, к которому добавляется запись об использовании.
+     * @param usageDto DTO с данными об использовании реагента.
+     * @return ResponseEntity с DTO добавленной записи об использовании реагента.
+     */
     @PostMapping("/usages")
     public ResponseEntity<ReagentUsageResponseDto> addUsage(@PathVariable Long journalId,
                                                             @RequestBody ReagentUsageRequestDto usageDto) {
@@ -39,13 +64,26 @@ public class JournalEditingScreenController {
         );
     }
 
+    /**
+     * Удаляет запись об использовании реагента из журнала.
+     *
+     * @param journalId Идентификатор журнала, из которого удаляется запись.
+     * @param usageId Идентификатор записи об использовании, которую необходимо удалить.
+     * @return ResponseEntity без содержимого.
+     */
     @DeleteMapping("/usages/{usageId}")
     public ResponseEntity<Void> deleteUsage(@PathVariable Long journalId, @PathVariable Long usageId) {
-        return ResponseEntity.ok(
-                dataHolder.deleteUsage(journalId, usageId)
-        );
+        dataHolder.deleteUsage(journalId, usageId);
+        return ResponseEntity.ok().build();
     }
 
+    /**
+     * Удаляет запись журнала.
+     *
+     * @param journalId Идентификатор удаляемой записи журнала.
+     * @return ResponseEntity без содержимого.
+     * @throws HttpServerErrorException если метод не реализован.
+     */
     @DeleteMapping
     public ResponseEntity<Void> deleteJournalEntry(@PathVariable Long journalId) {
         throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED, "Method not implemented");

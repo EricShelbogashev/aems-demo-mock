@@ -14,10 +14,20 @@ public class ReagentUsageController {
 
     private final CommonDataHolder dataHolder;
 
+    /**
+     * Конструктор для контроллера управления использованием реагентов.
+     *
+     * @param dataHolder Хранилище общих данных, используемое для отслеживания использования реагентов.
+     */
     public ReagentUsageController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }
 
+    /**
+     * Получает статистику использования всех реагентов.
+     *
+     * @return ResponseEntity со списком DTO, отражающим статистику использования реагентов.
+     */
     @GetMapping("/stats")
     public ResponseEntity<List<ReagentUsageResponseDto>> getStats() {
         return ResponseEntity.ok(

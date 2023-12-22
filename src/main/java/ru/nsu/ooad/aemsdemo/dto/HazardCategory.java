@@ -1,6 +1,7 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
 public enum HazardCategory {
+    NON_HAZARDOUS,
     CORROSIVE,            // Коррозийный
     ENVIRONMENTAL_HAZARD, // Опасный для окружающей среды
     EXPLOSIVE,            // Взрывоопасный

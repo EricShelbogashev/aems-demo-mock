@@ -5,9 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import jdk.jfr.Timestamp;
 
 @Entity
 @Table(name = "reagent")
@@ -29,14 +31,33 @@ public class Reagent {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "hazard_category", nullable = false)
-    private Long hazardCategory;
+    @OneToOne
+    @JoinColumn(name = "hazard_category")
+    private HazardCategoryDomain hazardCategoryDomain;
 
+    @Timestamp
     @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
+    @Timestamp
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
+
+    public Reagent(String title, String latexFormula, Double molarWeight, String description,
+            HazardCategoryDomain hazardCategoryDomain) {
+
+        this.title = title;
+        this.latexFormula = latexFormula;
+        this.molarWeight = molarWeight;
+        this.description = description;
+        this.hazardCategoryDomain = hazardCategoryDomain;
+//        this.createdAt = createdAt;
+//        this.updatedAt = updatedAt;
+    }
+
+    public Reagent() {
+
+    }
 
     public Long getId() {
         return id;
@@ -78,27 +99,27 @@ public class Reagent {
         this.description = description;
     }
 
-    public Long getHazardCategory() {
-        return hazardCategory;
+    public HazardCategoryDomain getHazardCategory() {
+        return hazardCategoryDomain;
     }
 
-    public void setHazardCategory(Long hazardCategory) {
-        this.hazardCategory = hazardCategory;
+    public void setHazardCategory(HazardCategoryDomain hazardCategory) {
+        this.hazardCategoryDomain = hazardCategory;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

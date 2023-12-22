@@ -6,20 +6,21 @@ import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.*;
 
 import java.util.*;
+import ru.nsu.ooad.aemsdemo.service.ReagentService;
 
 @RestController
 @RequestMapping("v1/catalogs/reagents")
 public class ReagentCatalogueController {
 
-    private final CommonDataHolder dataHolder;
+    private final ReagentService reagentService;
 
     /**
      * Конструктор для контроллера каталога реагентов.
      *
-     * @param dataHolder Хранилище общих данных, используемое для управления реагентами.
+     * @param reagentService Сервис для управления реагентами.
      */
-    public ReagentCatalogueController(CommonDataHolder dataHolder) {
-        this.dataHolder = dataHolder;
+    public ReagentCatalogueController(ReagentService reagentService) {
+        this.reagentService = reagentService;
     }
 
     /**
@@ -30,7 +31,7 @@ public class ReagentCatalogueController {
     @GetMapping
     public ResponseEntity<List<ReagentResponseDto>> getAllReagents() {
         return ResponseEntity.ok(
-                dataHolder.getReagentResponseDtos()
+                reagentService.getReagentResponseDtos()
         );
     }
 
@@ -43,7 +44,7 @@ public class ReagentCatalogueController {
     @PostMapping
     public ResponseEntity<ReagentResponseDto> createReagent(@RequestBody ReagentRequestDto reagentDto) {
         return ResponseEntity.ok(
-                dataHolder.addReagent(reagentDto)
+                reagentService.addReagent(reagentDto)
         );
     }
 

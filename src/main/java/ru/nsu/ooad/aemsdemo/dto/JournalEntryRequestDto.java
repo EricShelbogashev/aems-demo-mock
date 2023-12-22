@@ -1,8 +1,6 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import org.springframework.validation.annotation.*;
-
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO (Data Transfer Object) для запроса создания или обновления записи журнала.
@@ -11,9 +9,9 @@ import javax.validation.constraints.*;
  * @param title Заголовок записи журнала. Должен быть не пустым и не может быть null.
  *              Это поле обязательно для заполнения и подлежит валидации на предмет отсутствия пустых значений.
  */
-@Validated
 public record JournalEntryRequestDto(
-        @NotBlank(message = "Заголовок не может быть пустым")
+        @NotBlank(message = "заголовок не может быть пустым")
+        @Size(max = 256, message = "заголовок не должен превышать 256 символов")
         String title
 ) {
 }

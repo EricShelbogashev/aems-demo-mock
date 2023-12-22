@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.*;
 
+import javax.validation.*;
 import java.util.*;
 
 @RestController
@@ -31,7 +32,7 @@ public class ReagentManagementController {
      */
     @PutMapping
     public ResponseEntity<ReagentResponseDto> updateReagent(@PathVariable Long id,
-                                                            @RequestBody ReagentRequestDto reagentDto) {
+                                                            @Valid @RequestBody ReagentRequestDto reagentDto) {
         return ResponseEntity.ok(
                 dataHolder.updateReagent(id, reagentDto)
         );

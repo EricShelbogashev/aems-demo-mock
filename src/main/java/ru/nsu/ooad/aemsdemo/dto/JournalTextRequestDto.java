@@ -1,7 +1,6 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import org.springframework.validation.annotation.Validated;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO для запроса, содержащего текст записи журнала.
@@ -10,9 +9,9 @@ import javax.validation.constraints.NotBlank;
  * @param text Текст записи журнала. Этот текст не может быть null и не должен быть пустым.
  *             Валидация на отсутствие пустых значений обеспечивается с помощью аннотации @NotBlank.
  */
-@Validated
 public record JournalTextRequestDto(
-        @NotBlank(message = "Текст записи не может быть пустым")
+        @NotBlank(message = "текст записи не может быть пустым")
+        @Size(max = 8192, message = "размер журнала не должен превышать 8192 символа")
         String text
 ) {
 }

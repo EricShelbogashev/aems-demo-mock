@@ -112,7 +112,7 @@ public class CommonDataHolder {
             reagentUsageMap.put(i, new ReagentUsageResponseDto(
                     i, // usageId
                     ThreadLocalRandom.current().nextLong(1, 48), // reagentId
-                    journalMap.get(ThreadLocalRandom.current().nextLong(0, 46)), // journalId
+                    journalMap.get(ThreadLocalRandom.current().nextLong(1, 47)), // journalId
                     usageReasons[ThreadLocalRandom.current().nextInt(usageReasons.length)], // reason
                     ThreadLocalRandom.current().nextDouble(1.0, 100.0), // quantity
                     units[ThreadLocalRandom.current().nextInt(units.length)], // unit

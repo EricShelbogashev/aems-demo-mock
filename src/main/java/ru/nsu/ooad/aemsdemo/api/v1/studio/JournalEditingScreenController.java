@@ -6,6 +6,8 @@ import org.springframework.web.client.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.*;
 
+import javax.validation.*;
+
 @RestController
 @RequestMapping("v1/sources/journals/{journalId}")
 public class JournalEditingScreenController {
@@ -43,7 +45,7 @@ public class JournalEditingScreenController {
      */
     @PostMapping
     public ResponseEntity<JournalTextResponseDto> updateText(@PathVariable Long journalId,
-                                                             @RequestBody JournalTextRequestDto textDto) {
+                                                             @Valid @RequestBody JournalTextRequestDto textDto) {
         return ResponseEntity.ok(
                 dataHolder.updateText(journalId, textDto)
         );
@@ -58,7 +60,7 @@ public class JournalEditingScreenController {
      */
     @PostMapping("/usages")
     public ResponseEntity<ReagentUsageResponseDto> addUsage(@PathVariable Long journalId,
-                                                            @RequestBody ReagentUsageRequestDto usageDto) {
+                                                            @Valid @RequestBody ReagentUsageRequestDto usageDto) {
         return ResponseEntity.ok(
                 dataHolder.addUsage(journalId, usageDto)
         );
@@ -72,7 +74,7 @@ public class JournalEditingScreenController {
      * @return ResponseEntity без содержимого.
      */
     @DeleteMapping("/usages/{usageId}")
-    public ResponseEntity<Void> deleteUsage(@PathVariable Long journalId, @PathVariable Long usageId) {
+    public ResponseEntity<Void> deleteUsage(@PathVariable Long journalId, @Valid @PathVariable Long usageId) {
         dataHolder.deleteUsage(journalId, usageId);
         return ResponseEntity.ok().build();
     }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.*;
 
+import javax.validation.*;
 import java.util.*;
 import ru.nsu.ooad.aemsdemo.service.ReagentService;
 
@@ -42,7 +43,7 @@ public class ReagentCatalogueController {
      * @return ResponseEntity с DTO созданного реагента.
      */
     @PostMapping
-    public ResponseEntity<ReagentResponseDto> createReagent(@RequestBody ReagentRequestDto reagentDto) {
+    public ResponseEntity<ReagentResponseDto> createReagent(@Valid @RequestBody ReagentRequestDto reagentDto) {
         return ResponseEntity.ok(
                 reagentService.addReagent(reagentDto)
         );

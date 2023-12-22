@@ -6,4 +6,9 @@ package ru.nsu.ooad.aemsdemo.dto;
  * @param text Текст журнала.
  */
 public record JournalTextResponseDto(String text) {
+    public JournalTextResponseDto {
+        if (text == null) {
+            throw new IllegalArgumentException("текст журнала не должен быть null");
+        }
+    }
 }

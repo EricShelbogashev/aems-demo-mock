@@ -1,8 +1,6 @@
 package ru.nsu.ooad.aemsdemo.dto;
 
-import org.springframework.validation.annotation.Validated;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO (Data Transfer Object) для запроса использования реагента.
@@ -10,22 +8,20 @@ import javax.validation.constraints.Positive;
  *
  * @param reagentId Идентификатор реагента. Не может быть null.
  * @param journalId Идентификатор записи журнала, связанной с использованием реагента. Не может быть null.
- * @param reason Причина использования реагента. Не может быть null.
- * @param quantity Количество используемого реагента. Должно быть положительным числом.
- * @param unit Единица измерения количества реагента. Не может быть null.
+ * @param reason    Причина использования реагента. Не может быть null.
+ * @param quantity  Количество используемого реагента. Должно быть положительным числом.
+ * @param unit      Единица измерения количества реагента. Не может быть null.
  */
-@Validated
 public record ReagentUsageRequestDto(
-        @NotNull(message = "Идентификатор реагента не может быть null")
+        @NotNull(message = "идентификатор реагента не может быть null")
         Long reagentId,
-        @NotNull(message = "Идентификатор записи журнала не может быть null")
         Long journalId,
-        @NotNull(message = "Причина использования не может быть null")
+        @NotNull(message = "причина использования не может быть null")
         UsageReason reason,
-        @NotNull(message = "Количество не может быть null")
-        @Positive(message = "Количество должно быть положительным числом")
+        @NotNull(message = "количество не может быть null")
+        @Positive(message = "количество должно быть положительным числом")
         Double quantity,
-        @NotNull(message = "Единица измерения не может быть null")
+        @NotNull(message = "единица измерения не может быть null")
         Unit unit
 ) {
 }

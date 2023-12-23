@@ -1,6 +1,8 @@
 package ru.nsu.ooad.aemsdemo.api.v1;
 
+import com.fasterxml.jackson.databind.exc.*;
 import org.springframework.http.*;
+import org.springframework.http.converter.*;
 import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
@@ -33,7 +35,7 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
 
         // Создаем объект ErrorResponseDto для возврата информации об ошибках
-        ErrorResponseDto responseDto = new ErrorResponseDto("Ошибка валидации", errors);
+        ErrorResponseDto responseDto = new ErrorResponseDto("ошибка валидации", errors);
 
         return ResponseEntity.badRequest().body(responseDto);
     }
@@ -43,6 +45,31 @@ public class GlobalExceptionHandler {
         List<String> errors = new ArrayList<>();
 
         ErrorResponseDto responseDto = new ErrorResponseDto(exception.getMessage(), errors);
+
+        return ResponseEntity.badRequest().body(responseDto);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponseDto> handleHttpMessageNotReadable(HttpMessageNotReadableException exception) {
+        String error = "Неверный формат запроса JSON";
+        if (exception.getCause() instanceof InvalidFormatException cause) {
+            error = "некорректное значение: " + cause.getValue();
+        }
+
+        List<String> errors = new ArrayList<>();
+
+        ErrorResponseDto responseDto = new ErrorResponseDto(error, errors);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> handleException(Exception exception) {
+        exception.printStackTrace();
+
+        List<String> errors = new ArrayList<>();
+
+        ErrorResponseDto responseDto = new ErrorResponseDto("что-то пошло не так, проверьте запрос", errors);
 
         return ResponseEntity.badRequest().body(responseDto);
     }

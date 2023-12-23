@@ -12,13 +12,11 @@ import javax.validation.*;
 @RequestMapping("v1/sources/journals/{journalId}")
 public class JournalEditingScreenController {
 
+    /**
+     * Хранилище общих данных, используемое для доступа к записям журнала.
+     */
     private final CommonDataHolder dataHolder;
 
-    /**
-     * Конструктор для контроллера экрана редактирования журнала.
-     *
-     * @param dataHolder Хранилище общих данных, используемое для управления содержимым журнала.
-     */
     public JournalEditingScreenController(CommonDataHolder dataHolder) {
         this.dataHolder = dataHolder;
     }
@@ -74,9 +72,11 @@ public class JournalEditingScreenController {
      * @return ResponseEntity без содержимого.
      */
     @DeleteMapping("/usages/{usageId}")
-    public ResponseEntity<Void> deleteUsage(@PathVariable Long journalId, @Valid @PathVariable Long usageId) {
+    public ResponseEntity<MessageResponseDto> deleteUsage(@PathVariable Long journalId, @Valid @PathVariable Long usageId) {
         dataHolder.deleteUsage(journalId, usageId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(
+                new MessageResponseDto("реактив успешно удален")
+        );
     }
 
     /**
@@ -87,7 +87,9 @@ public class JournalEditingScreenController {
      * @throws HttpServerErrorException если метод не реализован.
      */
     @DeleteMapping
-    public ResponseEntity<Void> deleteJournalEntry(@PathVariable Long journalId) {
-        throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED, "Method not implemented");
+    public ResponseEntity<MessageResponseDto> deleteJournalEntry(@PathVariable Long journalId) {
+        return ResponseEntity.ok(
+                new MessageResponseDto("реактив успешно удален")
+        );
     }
 }

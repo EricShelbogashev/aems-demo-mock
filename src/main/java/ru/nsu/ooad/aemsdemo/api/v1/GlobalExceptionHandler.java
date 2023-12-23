@@ -1,9 +1,11 @@
 package ru.nsu.ooad.aemsdemo.api.v1;
 
+import com.fasterxml.jackson.databind.exc.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
+import ru.nsu.ooad.aemsdemo.factory.exception.*;
 
 import java.util.*;
 import java.util.stream.*;
@@ -26,7 +28,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponseDto> handleValidationException(MethodArgumentNotValidException ex) {
         // Извлекаем ошибки валидации из объекта BindingResult
-        List<String> errors = ex.getBindingResult()
+        List<String> errors = exception.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
@@ -43,6 +45,16 @@ public class GlobalExceptionHandler {
         List<String> errors = Collections.singletonList(exception.getMessage());
 
         ErrorResponseDto responseDto = new ErrorResponseDto("Ошибка валидации", errors);
+
+        return ResponseEntity.badRequest().body(responseDto);
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> handleException(Exception exception) {
+        exception.printStackTrace();
+
+        List<String> errors = new ArrayList<>();
+
+        ErrorResponseDto responseDto = new ErrorResponseDto("что-то пошло не так, проверьте запрос", errors);
 
         return ResponseEntity.badRequest().body(responseDto);
     }

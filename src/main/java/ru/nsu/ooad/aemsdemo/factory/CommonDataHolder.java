@@ -1,15 +1,17 @@
 package ru.nsu.ooad.aemsdemo.factory;
 
-import jakarta.annotation.*;
-import org.springframework.stereotype.*;
+import jakarta.annotation.PostConstruct;
+import org.springframework.stereotype.Component;
 import ru.nsu.ooad.aemsdemo.dto.*;
-import ru.nsu.ooad.aemsdemo.factory.exception.catalogue.*;
-import ru.nsu.ooad.aemsdemo.factory.exception.management.*;
-import ru.nsu.ooad.aemsdemo.factory.exception.studio.*;
+import ru.nsu.ooad.aemsdemo.factory.exception.BaseException;
+import ru.nsu.ooad.aemsdemo.factory.exception.catalogue.JournalCatalogueException;
+import ru.nsu.ooad.aemsdemo.factory.exception.management.ReagentManagementException;
+import ru.nsu.ooad.aemsdemo.factory.exception.studio.JournalContentException;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class CommonDataHolder {
@@ -291,6 +293,7 @@ public class CommonDataHolder {
                 (key, value) -> {
                     var usages = value.usages();
                     usages.add(usageResponseDto);
+                    reagentUsageMap.put(id, usageResponseDto);
                     return new JournalContentResponseDto(
                             value.id(),
                             value.title(),
@@ -313,7 +316,14 @@ public class CommonDataHolder {
                 (key, value) -> {
                     var usages = value.usages();
                     Optional<ReagentUsageResponseDto> any = usages.stream().filter(t -> t.usageId().equals(usageId)).findAny();
+                    if (any.isPresent()) {
+                        boolean foundUsage = journalContentMap.values().stream().anyMatch(obj -> obj.usages().contains(any.get()));
+                        if (foundUsage) {
+                            throw new BaseException("удаляемый элемент существует в одном из журналов, поэтому не может быть удалён");
+                        }
+                    }
                     any.ifPresent(usages::remove);
+                    reagentUsageMap.remove(usageId);
                     return new JournalContentResponseDto(
                             value.id(),
                             value.title(),

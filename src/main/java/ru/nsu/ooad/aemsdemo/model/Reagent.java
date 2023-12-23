@@ -1,4 +1,4 @@
-package ru.nsu.ooad.aemsdemo.domai;
+package ru.nsu.ooad.aemsdemo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
-import jdk.jfr.Timestamp;
 
 @Entity
 @Table(name = "reagent")
@@ -35,11 +34,9 @@ public class Reagent {
     @JoinColumn(name = "hazard_category")
     private HazardCategoryDomain hazardCategoryDomain;
 
-    @Timestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Timestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 

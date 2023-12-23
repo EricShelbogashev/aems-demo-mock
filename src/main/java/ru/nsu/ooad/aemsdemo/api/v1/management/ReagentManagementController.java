@@ -7,20 +7,21 @@ import ru.nsu.ooad.aemsdemo.factory.*;
 
 import javax.validation.*;
 import java.util.*;
+import ru.nsu.ooad.aemsdemo.service.ManagementService;
 
 @RestController
 @RequestMapping("v1/management/reagents/{id}")
 public class ReagentManagementController {
 
-    private final CommonDataHolder dataHolder;
+    private final ManagementService managementService;
 
     /**
      * Конструктор для контроллера управления реагентами.
      *
-     * @param dataHolder Хранилище общих данных, используемое для управления реагентами.
+     * @param managementService Сервис используемый для управления реагентами.
      */
-    public ReagentManagementController(CommonDataHolder dataHolder) {
-        this.dataHolder = dataHolder;
+    public ReagentManagementController(ManagementService managementService) {
+        this.managementService = managementService;
     }
 
     /**
@@ -34,7 +35,7 @@ public class ReagentManagementController {
     public ResponseEntity<ReagentResponseDto> updateReagent(@PathVariable Long id,
                                                             @Valid @RequestBody ReagentRequestDto reagentDto) {
         return ResponseEntity.ok(
-                dataHolder.updateReagent(id, reagentDto)
+                managementService.updateReagent(id, reagentDto)
         );
     }
 
@@ -46,7 +47,7 @@ public class ReagentManagementController {
      */
     @DeleteMapping
     public ResponseEntity<Void> deleteReagent(@PathVariable Long id) {
-        dataHolder.deleteReagent(id);
+        managementService.deleteReagent(id);
         return ResponseEntity.ok().build();
     }
 
@@ -59,7 +60,7 @@ public class ReagentManagementController {
     @GetMapping("/consumption-stats")
     public ResponseEntity<List<ReagentUsageResponseDto>> getReagentConsumption(@PathVariable Long id) {
         return ResponseEntity.ok(
-                dataHolder.getConsumptionByReagent(id)
+                managementService.getConsumptionByReagent(id)
         );
     }
 }

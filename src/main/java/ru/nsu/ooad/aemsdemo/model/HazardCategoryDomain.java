@@ -1,4 +1,4 @@
-package ru.nsu.ooad.aemsdemo.domai;
+package ru.nsu.ooad.aemsdemo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

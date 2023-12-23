@@ -6,21 +6,21 @@ import ru.nsu.ooad.aemsdemo.dto.*;
 
 import javax.validation.*;
 import java.util.*;
-import ru.nsu.ooad.aemsdemo.service.ReagentService;
+import ru.nsu.ooad.aemsdemo.service.CatalogueService;
 
 @RestController
 @RequestMapping("v1/catalogs/reagents")
 public class ReagentCatalogueController {
 
-    private final ReagentService reagentService;
+    private final CatalogueService catalogueService;
 
     /**
      * Конструктор для контроллера каталога реагентов.
      *
-     * @param reagentService Сервис для управления реагентами.
+     * @param catalogueService Сервис для управления реагентами.
      */
-    public ReagentCatalogueController(ReagentService reagentService) {
-        this.reagentService = reagentService;
+    public ReagentCatalogueController(CatalogueService catalogueService) {
+        this.catalogueService = catalogueService;
     }
 
     /**
@@ -31,7 +31,7 @@ public class ReagentCatalogueController {
     @GetMapping
     public ResponseEntity<List<ReagentResponseDto>> getAllReagents() {
         return ResponseEntity.ok(
-                reagentService.getReagentResponseDtos()
+                catalogueService.getReagentResponseDtos()
         );
     }
 
@@ -44,7 +44,7 @@ public class ReagentCatalogueController {
     @PostMapping
     public ResponseEntity<ReagentResponseDto> createReagent(@Valid @RequestBody ReagentRequestDto reagentDto) {
         return ResponseEntity.ok(
-                reagentService.addReagent(reagentDto)
+                catalogueService.addReagent(reagentDto)
         );
     }
 

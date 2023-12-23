@@ -34,14 +34,20 @@ public class ManagementService {
         reagent.setMolarWeight(reagentDto.molarWeight());
         reagent.setDescription(reagent.getDescription());
         reagent.setHazardCategory(Converter.hazardCategoryDtoToDomain(reagentDto.hazardCategory()));
+        reagentRepository.save(reagent);
         return Converter.reagentToDTO(reagent);
     }
 
     public void deleteReagent(Long id) {
-        reagentRepository.deleteById(id);
+        throw new ReagentManagementException("Метод ещё не реализован");
+//        reagentRepository.deleteById(id);
     }
 
     public List<ReagentUsageResponseDto> getConsumptionByReagent(Long id) {
-       return reagentUsageRepository.findAllByReagentId(id).stream().map(Converter::usageToDto).toList();
+       return reagentUsageRepository.findAllByReagentId(id).stream().map(Converter::reagentUsageToDto).toList();
+    }
+
+    public List<ReagentUsageResponseDto> getConsumptions() {
+       return reagentUsageRepository.findAll().stream().map(Converter::reagentUsageToDto).toList();
     }
 }

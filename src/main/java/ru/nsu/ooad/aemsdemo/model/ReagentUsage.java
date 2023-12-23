@@ -42,6 +42,19 @@ public class ReagentUsage {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    public ReagentUsage(Reagent reagent, Journal journal, UsageReason reason, Double quantity, UnitModel unit) {
+        this.reagent = reagent;
+        this.journal = journal;
+        this.reason = reason;
+        this.quantity = quantity;
+        this.unit = unit;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public ReagentUsage() {
+
+    }
+
     public Long getId() {
         return id;
     }

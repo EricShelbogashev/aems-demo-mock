@@ -64,7 +64,6 @@ Content-Type: application/json
   "text": "Новый текст журнала"
 }
 
-<> 2023-12-23T063650.200.json
 
 ### Добавляет запись об использовании реагента в журнал.
 POST http://localhost:8080/api/v1/sources/journals/{{$random.integer(0, 47)}}/usages

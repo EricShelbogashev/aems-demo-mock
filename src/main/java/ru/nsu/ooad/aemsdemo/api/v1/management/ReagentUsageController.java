@@ -3,9 +3,9 @@ package ru.nsu.ooad.aemsdemo.api.v1.management;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.ooad.aemsdemo.dto.*;
-import ru.nsu.ooad.aemsdemo.factory.*;
 
 import java.util.*;
+import ru.nsu.ooad.aemsdemo.service.ManagementService;
 
 @RestController
 @RequestMapping("v1/management/usage-entries")
@@ -14,10 +14,10 @@ public class ReagentUsageController {
     /**
      * Хранилище общих данных, используемое для доступа к записям журнала.
      */
-    private final CommonDataHolder dataHolder;
+    private final ManagementService managementService;
 
-    public ReagentUsageController(CommonDataHolder dataHolder) {
-        this.dataHolder = dataHolder;
+    public ReagentUsageController(ManagementService managementService) {
+        this.managementService = managementService;
     }
 
     /**
@@ -28,7 +28,7 @@ public class ReagentUsageController {
     @GetMapping
     public ResponseEntity<List<ReagentUsageResponseDto>> getStats() {
         return ResponseEntity.ok(
-                dataHolder.getConsumptions()
+                managementService.getConsumptions()
         );
     }
 

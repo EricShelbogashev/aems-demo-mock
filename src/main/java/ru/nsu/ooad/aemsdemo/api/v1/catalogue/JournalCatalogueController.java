@@ -7,6 +7,7 @@ import ru.nsu.ooad.aemsdemo.factory.*;
 
 import javax.validation.*;
 import java.util.*;
+import ru.nsu.ooad.aemsdemo.service.CatalogueService;
 
 @RestController
 @RequestMapping("v1/catalogs/journals")
@@ -15,10 +16,10 @@ public class JournalCatalogueController {
     /**
      * Хранилище общих данных, используемое для доступа к записям журнала.
      */
-    private final CommonDataHolder dataHolder;
+    private final CatalogueService catalogueService;
 
-    public JournalCatalogueController(CommonDataHolder dataHolder) {
-        this.dataHolder = dataHolder;
+    public JournalCatalogueController(CatalogueService catalogueService) {
+        this.catalogueService = catalogueService;
     }
 
     /**
@@ -29,7 +30,7 @@ public class JournalCatalogueController {
     @GetMapping
     public ResponseEntity<List<JournalEntryResponseDto>> getAllJournalEntries() {
         return ResponseEntity.ok(
-                dataHolder.getJournalEntryResponseDtos()
+                catalogueService.getJournalEntryResponseDtos()
         );
     }
 
@@ -40,9 +41,10 @@ public class JournalCatalogueController {
      * @return ResponseEntity с DTO созданной записи журнала.
      */
     @PostMapping
-    public ResponseEntity<JournalEntryResponseDto> createJournalEntry(@Valid @RequestBody JournalEntryRequestDto entryDto) {
+    public ResponseEntity<JournalEntryResponseDto> createJournalEntry(
+            @Valid @RequestBody JournalEntryRequestDto entryDto) {
         return ResponseEntity.ok(
-                dataHolder.addJournalEntry(entryDto)
+                catalogueService.addJournalEntry(entryDto)
         );
     }
 
@@ -55,9 +57,9 @@ public class JournalCatalogueController {
      */
     @PutMapping(path = "/{id}")
     public ResponseEntity<JournalEntryResponseDto> updateJournalEntry(@PathVariable Long id,
-                                                                      @Valid @RequestBody JournalEntryRequestDto entryDto) {
+            @Valid @RequestBody JournalEntryRequestDto entryDto) {
         return ResponseEntity.ok(
-                dataHolder.updateJournalEntry(id, entryDto)
+                catalogueService.updateJournalEntry(id, entryDto)
         );
     }
 

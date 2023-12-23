@@ -7,6 +7,7 @@ import ru.nsu.ooad.aemsdemo.dto.*;
 import ru.nsu.ooad.aemsdemo.factory.*;
 
 import javax.validation.*;
+import ru.nsu.ooad.aemsdemo.service.StudioService;
 
 @RestController
 @RequestMapping("v1/sources/journals/{journalId}")
@@ -15,10 +16,10 @@ public class JournalEditingScreenController {
     /**
      * Хранилище общих данных, используемое для доступа к записям журнала.
      */
-    private final CommonDataHolder dataHolder;
+    private final StudioService studioService;
 
-    public JournalEditingScreenController(CommonDataHolder dataHolder) {
-        this.dataHolder = dataHolder;
+    public JournalEditingScreenController(StudioService studioService) {
+        this.studioService = studioService;
     }
 
     /**
@@ -30,7 +31,7 @@ public class JournalEditingScreenController {
     @GetMapping
     public ResponseEntity<JournalContentResponseDto> getContent(@PathVariable Long journalId) {
         return ResponseEntity.ok(
-                dataHolder.getJournalContent(journalId)
+                studioService.getJournalContent(journalId)
         );
     }
 
@@ -45,7 +46,7 @@ public class JournalEditingScreenController {
     public ResponseEntity<JournalTextResponseDto> updateText(@PathVariable Long journalId,
                                                              @Valid @RequestBody JournalTextRequestDto textDto) {
         return ResponseEntity.ok(
-                dataHolder.updateText(journalId, textDto)
+                studioService.updateText(journalId, textDto)
         );
     }
 
@@ -60,7 +61,7 @@ public class JournalEditingScreenController {
     public ResponseEntity<ReagentUsageResponseDto> addUsage(@PathVariable Long journalId,
                                                             @Valid @RequestBody ReagentUsageRequestDto usageDto) {
         return ResponseEntity.ok(
-                dataHolder.addUsage(journalId, usageDto)
+                studioService.addUsage(journalId, usageDto)
         );
     }
 
@@ -73,9 +74,9 @@ public class JournalEditingScreenController {
      */
     @DeleteMapping("/usages/{usageId}")
     public ResponseEntity<MessageResponseDto> deleteUsage(@PathVariable Long journalId, @Valid @PathVariable Long usageId) {
-        dataHolder.deleteUsage(journalId, usageId);
+        studioService.deleteUsage(journalId, usageId);
         return ResponseEntity.ok(
-                new MessageResponseDto("реактив успешно удален")
+                new MessageResponseDto("Использование реактива удалено из журнала")
         );
     }
 
@@ -88,8 +89,9 @@ public class JournalEditingScreenController {
      */
     @DeleteMapping
     public ResponseEntity<MessageResponseDto> deleteJournalEntry(@PathVariable Long journalId) {
+//        studioService.deleteJournalEntry(journalId);
         return ResponseEntity.ok(
-                new MessageResponseDto("реактив успешно удален")
+                new MessageResponseDto("Метод ещё не реализован")
         );
     }
 }

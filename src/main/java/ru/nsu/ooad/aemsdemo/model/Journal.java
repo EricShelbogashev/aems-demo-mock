@@ -29,6 +29,15 @@ public class Journal {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public Journal(String title, String text, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.title = title;
+        this.text = text;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Journal() {}
+
 
     public Long getId() {
         return id;

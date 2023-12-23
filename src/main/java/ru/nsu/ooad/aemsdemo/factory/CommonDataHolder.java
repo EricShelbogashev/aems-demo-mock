@@ -11,7 +11,6 @@ import java.time.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-@Component
 public class CommonDataHolder {
     private final Map<Long, JournalEntryResponseDto> journalMap = new HashMap<>();
     private final Map<Long, ReagentResponseDto> reagentMap = new HashMap<>();

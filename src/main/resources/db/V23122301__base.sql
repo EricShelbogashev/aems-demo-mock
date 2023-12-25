@@ -5,7 +5,7 @@ CREATE TABLE hazard_category
 );
 
 INSERT INTO hazard_category (category)
-VALUES ('NON-HAZARDOUS'),
+VALUES ('NON_HAZARDOUS'),
        ('CORROSIVE'),
        ('ENVIRONMENTAL_HAZARD'),
        ('EXPLOSIVE'),

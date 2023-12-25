@@ -43,7 +43,7 @@ public class JournalEditingScreenController {
      */
     @PostMapping
     public ResponseEntity<JournalTextResponseDto> updateText(@PathVariable Long journalId,
-                                                             @Valid @RequestBody JournalTextRequestDto textDto) {
+                                                              @RequestBody JournalTextRequestDto textDto) {
         return ResponseEntity.ok(
                 studioService.updateText(journalId, textDto)
         );

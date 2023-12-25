@@ -10,8 +10,8 @@ import jakarta.validation.constraints.*;
  *             Валидация на отсутствие пустых значений обеспечивается с помощью аннотации @NotBlank.
  */
 public record JournalTextRequestDto(
-        @NotBlank(message = "текст записи не может быть пустым")
-        @Size(max = 8192, message = "размер журнала не должен превышать 8192 символа")
+//        @NotBlank(message = "текст записи не может быть пустым")
+//        @Size(max = 8192, message = "размер журнала не должен превышать 8192 символа")
         String text
 ) {
 }
